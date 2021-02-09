@@ -269,39 +269,41 @@ namespace HW_8__06._02_
 
 
 
-        public static T[] Slice(ref T[] arr, int beginindex, int endindex = 0)
+        public static T[] Slice(ref T[] array, int begin_index = 0, int  end_index = 0)
         {
-            int begini = 0;
+            int len = array.Length;
+           
 
-            int endi = 0;
-            if (beginindex >= 0 && endindex >= 0)
+            if (end_index < 0)
             {
-                begini = beginindex;
-                endi = endindex;
+                end_index = len + end_index;
             }
-            else if (beginindex < 0 && endindex == 0)
+            if (begin_index < 0)
             {
-                begini = arr.Length + beginindex;
-                endi = arr.Length;
+                begin_index = array.Length + begin_index;
             }
-            else if (beginindex > arr.Length)
+            if(end_index == 0)
             {
-                begini = 0;
-                endi = 0;
+                end_index = array.Length;
             }
-            else if (beginindex >= 0 && endindex < 0)
+           
+            int new_len =end_index - begin_index;
+            if (new_len < 1)
             {
-                begini = beginindex;
-                endi = arr.Length + endindex;
+                return new T[0];
             }
-            T[] newarr = new T[Math.Abs(endi - begini)];
-            for (int i = 0; i < newarr.Length; i++)
+            Console.WriteLine(begin_index);
+            Console.WriteLine(end_index);
+            Console.WriteLine($"new len = {new_len}");
+            T[] sub_array = new T[new_len];
+            for (int i = 0; i < new_len; i++)
             {
-                newarr[i] = arr[begini];
-                begini++;
+                sub_array[i] = array[i + (int)begin_index];
             }
-            return newarr;
+
+            return sub_array;
         }
+
 
         
     }
